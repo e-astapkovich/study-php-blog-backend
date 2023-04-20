@@ -1,6 +1,6 @@
 <?php
 
-namespace Eastap\PhpBlog\User;
+namespace Eastap\PhpBlog\Blog;
 
 use Eastap\PhpBlog\User\Name;
 
