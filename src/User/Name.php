@@ -18,4 +18,12 @@ class Name {
   {
     return $this->firstname ." ". $this->lastname;
   }
+
+  public function first() {
+    return $this->firstname;
+  }
+
+  public function last() {
+    return $this->lastname;
+  }
 }
