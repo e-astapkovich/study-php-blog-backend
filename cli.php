@@ -8,8 +8,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 $faker = \Faker\Factory::create();
 
 $user = new User(
+  $faker->unique()->numberBetween(1, 1000),
   $faker->firstName(null),
   $faker->lastName(null)
 );
 
-print $user;
+print $user . PHP_EOL;
+print $user->getId();
