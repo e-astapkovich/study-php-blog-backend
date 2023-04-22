@@ -14,4 +14,6 @@ $user = new User(
 );
 
 print $user . PHP_EOL;
-print $user->getId();
+print $user->getId() . PHP_EOL;;
+print $user->getFirstName() . PHP_EOL;;
+print $user->getLastName() . PHP_EOL;;

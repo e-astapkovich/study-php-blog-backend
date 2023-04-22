@@ -24,4 +24,12 @@ class User {
   public function getId() {
     return $this->id;
   }
+
+  public function getFirstName() {
+    return $this->firstname;
+  }
+
+  public function getLastName() {
+    return $this->lastname;
+  }
 }
