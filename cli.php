@@ -33,3 +33,17 @@ print $post->getId() . PHP_EOL;
 print $post->getAuthor() . PHP_EOL;
 print $post->getTitle() . PHP_EOL;
 print $post->getText() . PHP_EOL;
+
+$comment = new Comment(
+  $faker->unique()->numberBetween(1, 1000),
+  $faker->unique()->numberBetween(1, 1000),
+  $faker->unique()->numberBetween(1, 1000),
+  $faker->paragraph(rand(1, 3))
+);
+
+print $comment . PHP_EOL;
+print PHP_EOL;
+print $comment->getId() . PHP_EOL;
+print $comment->getPostId() . PHP_EOL;
+print $comment->getUserId() . PHP_EOL;
+print $comment->getText() . PHP_EOL;
