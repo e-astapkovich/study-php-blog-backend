@@ -2,13 +2,17 @@
 
 namespace Eastap\PhpBlog\Blog;
 
+use Eastap\PhpBlog\UUID;
+
 class User {
-  private int $id;
+  private int $uuid;
+  private string $login; // В методичке используется название $username. Но мне показалось, что $login понятней.
   private string $firstname;
   private string $lastname;
 
-  public function __construct(int $id, string $firstname, string $lastname) {
-    $this->id = $id;
+  public function __construct(string $login, string $firstname, string $lastname) {
+    $this->uuid = UUID::random();
+    $this->login = $login;
     $this->firstname = $firstname;
     $this->lastname = $lastname;
   }
@@ -19,7 +23,11 @@ class User {
   }
 
   public function getId() {
-    return $this->id;
+    return $this->uuid;
+  }
+
+  public function getLogin() {
+    return $this->login;
   }
 
   public function getFirstName() {
