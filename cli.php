@@ -9,7 +9,7 @@ $faker = \Faker\Factory::create();
 switch($argv[1]) {
   case 'user':
     print new User(
-        $faker->unique()->numberBetween(1, 1000),
+        $faker->word(),
         $faker->firstName(null),
         $faker->lastName(null)
       );
@@ -19,7 +19,7 @@ switch($argv[1]) {
       print new Post(
           $faker->unique()->numberBetween(1, 1000),
           new User(
-            $faker->unique()->numberBetween(1, 1000),
+            $faker->word(),
             $faker->firstName(null),
             $faker->lastName(null)
           ),

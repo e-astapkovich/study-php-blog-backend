@@ -5,7 +5,7 @@ namespace Eastap\PhpBlog\Blog;
 use Eastap\PhpBlog\UUID;
 
 class User {
-  private int $uuid;
+  private UUID $uuid;
   private string $login; // В методичке используется название $username. Но мне показалось, что $login понятней.
   private string $firstname;
   private string $lastname;
@@ -19,7 +19,7 @@ class User {
 
   public function __toString()
   {
-    return $this->firstname ." ". $this->lastname;
+    return "Пользователь $this->firstname $this->lastname с id: $this->uuid и логином $this->login";
   }
 
   public function getId() {
