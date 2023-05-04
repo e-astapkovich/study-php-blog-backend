@@ -10,8 +10,8 @@ class User {
   private string $firstname;
   private string $lastname;
 
-  public function __construct(string $login, string $firstname, string $lastname) {
-    $this->uuid = UUID::random();
+  public function __construct(UUID $uuid, string $login, string $firstname, string $lastname) {
+    $this->uuid = $uuid;
     $this->login = $login;
     $this->firstname = $firstname;
     $this->lastname = $lastname;
