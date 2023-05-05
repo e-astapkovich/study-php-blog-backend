@@ -19,7 +19,7 @@ class Comment {
 
   public function __toString()
   {
-    return $this->text;
+    return "Комментарий: $this->text";
   }
 
   public function getId() {

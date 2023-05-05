@@ -1,8 +1,12 @@
 <?php
 
+//ДЛЯ СОЗДАНИЯ И ТЕСТОВОГО ЗАПОЛНЕНИЯ БД, ЗАПУСТИТЬ ФАЙЛ createDB.php
+
 namespace Eastap\PhpBlog\Blog;
 
 use Eastap\PhpBlog\Exceptions\AppException;
+use Eastap\PhpBlog\Repositories\SqlitePostRepository;
+use Eastap\PhpBlog\Repositories\SqliteCommentRepository;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\UUID;
 use \PDO;
@@ -15,23 +19,36 @@ $pdo = new PDO('sqlite:blog.sqlite', null, null, [
   PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
 ]);
 
-$repo = new SqliteUserRepository($pdo);
+$userRepo = new SqliteUserRepository($pdo);
 
 // $pirate = new User(UUID::random(), 'pirate', 'Billy', 'Bons');
 // $repo->save($pirate);
 
 try {
   // echo $repo->get(new UUID('3bed1a29-6737-45ff-81f2-7366f56498a7'));
-echo $repo->getByLogin('pirate');
+echo $userRepo->getByLogin('pirate') . PHP_EOL;
 } catch (AppException $e) {
   echo "пользователь не найден";
 }
 
+$postRepo = new SqlitePostRepository($pdo);
+
 try {
-  //code...
-} catch (\Throwable $th) {
-  //throw $th;
+  echo $postRepo->get(new UUID('881a75e6-5db9-4106-bb1c-94a84058594f')) . PHP_EOL;
+} catch (AppException $e) {
+  echo $e->getMessage();
 }
+
+$commentRepo = new SqliteCommentRepository($pdo);
+
+try {
+  echo $commentRepo->get(new UUID('616f7121-89d0-4f38-b356-31746394d41a')) . PHP_EOL;
+} catch (AppException $e) {
+  echo $e->getMessage();
+}
+
+
+
 
 
 // switch($argv[1]) {

@@ -3,6 +3,7 @@
 namespace Eastap\PhpBlog\Repositories;
 
 use Eastap\PhpBlog\Interfaces\CommentRepositoryInterface;
+use Eastap\PhpBlog\Exceptions\CommentNotFoundException;
 use Eastap\PhpBlog\Blog\Comment;
 use Eastap\PhpBlog\UUID;
 use \PDO;
@@ -32,6 +33,9 @@ class SqliteCommentRepository implements CommentRepositoryInterface
     $statement = $this->pdo->prepare('SELECT * FROM `comments` WHERE `uuid`=?');
     $statement->execute([$id]);
     $result = $statement->fetch();
+    if ($result == false) {
+      throw new CommentNotFoundException("Коммент не найден");
+    }
     return new Comment(
       new UUID($result['uuid']),
       new UUID($result['post_uuid']),

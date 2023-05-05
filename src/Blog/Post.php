@@ -23,7 +23,7 @@ class Post {
   }
 
   public function __toString() {
-    return "Заголовок: $this->title\n$this->text";
+    return "Заголовок поста: $this->title\nТекст Поста: $this->text";
   }
 
   public function getId() {

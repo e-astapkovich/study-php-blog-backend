@@ -3,6 +3,7 @@
 namespace Eastap\PhpBlog\Repositories;
 
 use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
+use Eastap\PhpBlog\Exceptions\PostNotFoundException;
 use Eastap\PhpBlog\Blog\Post;
 use Eastap\PhpBlog\UUID;
 use Exception;
@@ -34,7 +35,7 @@ class SqlitePostRepository implements PostRepositoryInterface
     $statement->execute([(string)$id]);
     $result = $statement->fetch();
     if ($result == false) {
-      throw new Exception('Пост не найден');
+      throw new PostNotFoundException('Пост не найден');
     }
     return new Post(new UUID($result['uuid']), new UUID($result['author_uuid']), $result['title'], $result['text']);
   }

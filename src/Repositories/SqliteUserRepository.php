@@ -39,7 +39,6 @@ class SqliteUserRepository implements UserRepositoryInterface
 
   public function getByLogin(string $login): User
   {
-    echo "function getByLogin" . PHP_EOL; // debug
     $statement = $this->pdo->prepare("SELECT * FROM `users` WHERE `login` = ?");
     $statement->execute([$login]);
     return $this->getUser($statement);
