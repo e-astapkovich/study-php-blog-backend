@@ -2,19 +2,21 @@
 
 namespace Eastap\PhpBlog\Blog;
 
+use Eastap\PhpBlog\UUID;
+
 class Post {
-  private $id;
-  private $author;
-  private $title;
-  private $text;
+  private UUID $uuid;
+  private USER $author;
+  private string $title;
+  private string $text;
 
   public function __construct(
-    int $id,
+    UUID $uuid,
     User $author,
     string $title,
     string $text
   ) {
-    $this->id = $id;
+    $this->uuid = $uuid;
     $this->author = $author;
     $this->title = $title;
     $this->text = $text;
@@ -25,7 +27,7 @@ class Post {
   }
 
   public function getId() {
-    return $this->id;
+    return $this->uuid;
   }
 
   public function getAuthor() {
