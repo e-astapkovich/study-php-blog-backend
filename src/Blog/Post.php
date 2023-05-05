@@ -6,32 +6,32 @@ use Eastap\PhpBlog\UUID;
 
 class Post {
   private UUID $uuid;
-  private USER $author;
+  private UUID $authorId;
   private string $title;
   private string $text;
 
   public function __construct(
     UUID $uuid,
-    User $author,
+    UUID $authorId,
     string $title,
     string $text
   ) {
     $this->uuid = $uuid;
-    $this->author = $author;
+    $this->authorId = $authorId;
     $this->title = $title;
     $this->text = $text;
   }
 
   public function __toString() {
-    return "Автор: $this->author\nЗаголовок: $this->title\n$this->text";
+    return "Заголовок: $this->title\n$this->text";
   }
 
   public function getId() {
     return $this->uuid;
   }
 
-  public function getAuthor() {
-    return $this->author;
+  public function getAuthorId() {
+    return $this->authorId;
   }
 
   public function getTitle() {

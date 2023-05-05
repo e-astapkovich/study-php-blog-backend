@@ -7,13 +7,13 @@ use Eastap\PhpBlog\UUID;
 class Comment {
   private UUID $uuid;
   private UUID $postId;
-  private User $user;
+  private UUID $userId;
   private string $text;
 
-  public function __construct($uuid, $postId, $user, $text) {
+  public function __construct($uuid, $postId, $userId, $text) {
     $this->uuid = $uuid;
     $this->postId = $postId;
-    $this->user = $user;
+    $this->userId = $userId;
     $this->text = $text;
   }
 
@@ -30,8 +30,8 @@ class Comment {
     return $this->postId;
   }
 
-  public function getUser() {
-    return $this->user;
+  public function getUserId() {
+    return $this->userId;
   }
 
   public function getText() {
