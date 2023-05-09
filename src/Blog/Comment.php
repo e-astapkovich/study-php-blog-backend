@@ -2,14 +2,16 @@
 
 namespace Eastap\PhpBlog\Blog;
 
+use Eastap\PhpBlog\UUID;
+
 class Comment {
-  private int $id;
-  private int $postId;
-  private int $userId;
+  private UUID $uuid;
+  private UUID $postId;
+  private UUID $userId;
   private string $text;
 
-  public function __construct($id, $postId, $userId, $text) {
-    $this->id = $id;
+  public function __construct($uuid, $postId, $userId, $text) {
+    $this->uuid = $uuid;
     $this->postId = $postId;
     $this->userId = $userId;
     $this->text = $text;
@@ -17,11 +19,11 @@ class Comment {
 
   public function __toString()
   {
-    return $this->text;
+    return "Комментарий: $this->text";
   }
 
   public function getId() {
-    return $this->id;
+    return $this->uuid;
   }
 
   public function getPostId() {

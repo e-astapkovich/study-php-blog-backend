@@ -2,34 +2,36 @@
 
 namespace Eastap\PhpBlog\Blog;
 
+use Eastap\PhpBlog\UUID;
+
 class Post {
-  private $id;
-  private $author;
-  private $title;
-  private $text;
+  private UUID $uuid;
+  private UUID $authorId;
+  private string $title;
+  private string $text;
 
   public function __construct(
-    int $id,
-    User $author,
+    UUID $uuid,
+    UUID $authorId,
     string $title,
     string $text
   ) {
-    $this->id = $id;
-    $this->author = $author;
+    $this->uuid = $uuid;
+    $this->authorId = $authorId;
     $this->title = $title;
     $this->text = $text;
   }
 
   public function __toString() {
-    return "Автор: $this->author\nЗаголовок: $this->title\n$this->text";
+    return "Заголовок поста: $this->title\nТекст Поста: $this->text";
   }
 
   public function getId() {
-    return $this->id;
+    return $this->uuid;
   }
 
-  public function getAuthor() {
-    return $this->author;
+  public function getAuthorId() {
+    return $this->authorId;
   }
 
   public function getTitle() {
