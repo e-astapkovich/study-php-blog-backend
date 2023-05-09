@@ -2,7 +2,7 @@
 
 //ДЛЯ СОЗДАНИЯ И ТЕСТОВОГО ЗАПОЛНЕНИЯ БД, ЗАПУСТИТЬ ФАЙЛ createDB.php
 
-namespace Eastap\PhpBlog\Blog;
+// namespace Eastap\PhpBlog\Blog;
 
 use Eastap\PhpBlog\Exceptions\AppException;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
@@ -31,6 +31,6 @@ try {
 
 try {
   echo $commentRepo->get(new UUID('616f7121-89d0-4f38-b356-31746394d41a')) . PHP_EOL;
-} catch (AppException $e) {
+} catch (Exception $e) {
   echo $e->getMessage();
 }
