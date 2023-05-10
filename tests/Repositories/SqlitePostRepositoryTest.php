@@ -11,9 +11,8 @@ use Eastap\PhpBlog\UUID;
 
 final class SqlitePostRepositoryTest extends TestCase
 {
-    public function testItSavePostToDb()
+    private function createPostRepository()
     {
-        // $c = $this->createStub(PDO::class);
         $connectionStab = $this->createStub(PDO::class);
         $statementMock = $this->createMock(PDOStatement::class);
         $statementMock
@@ -27,7 +26,12 @@ final class SqlitePostRepositoryTest extends TestCase
             ]);
         $connectionStab->method('prepare')->willReturn($statementMock);
 
-        $repository = new SqlitePostRepository($connectionStab);
+        return new SqlitePostRepository($connectionStab);
+    }
+
+    public function testItSavePostToDb()
+    {
+        $repository = $this->createPostRepository();
         $repository->save(new Post(
             new UUID('123e4567-e89b-12d3-a456-426614174000'),
             new UUID('3bed1a29-6737-45ff-81f2-7366f56498a7'),
