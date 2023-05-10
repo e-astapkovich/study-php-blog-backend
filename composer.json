@@ -12,11 +12,16 @@
             "email": "ni-shagu-nazad@yandex.ru"
         }
     ],
+    "scripts": {
+        "test": "phpunit tests --testdox --colors"
+    },
     "require": {
         "symfony/polyfill-uuid": "^1.27"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",
-        "roave/security-advisories": "dev-latest"
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "^10.1"
     }
+
 }
