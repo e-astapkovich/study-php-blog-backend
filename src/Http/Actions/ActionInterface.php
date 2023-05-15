@@ -1,6 +1,6 @@
 <?php
 
-namespace Eastap\PhpBlog\Actions;
+namespace Eastap\PhpBlog\Http\Actions;
 
 use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\Response;
