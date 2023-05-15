@@ -6,7 +6,7 @@ use Eastap\PhpBlog\Exceptions\ArgumentsException;
 
 class Arguments
 {
-    private array $arguments;
+    private array $arguments = [];
     public function __construct(iterable $arguments)
     {
         foreach ($arguments as $argument => $value) {
