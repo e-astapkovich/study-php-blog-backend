@@ -15,7 +15,14 @@ use PDO;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$request = new Request($_GET, $_SERVER);
+$request = new Request(
+    $_GET,
+    $_SERVER,
+    file_get_contents('php://input')
+);
+
+// print_r($request->JsonBody());
+echo $request->JsonBodyField($_GET['field']);
 
 try {
     $path = $request->path();
@@ -46,6 +53,23 @@ $routes = [
     )
 ];
 
+// if (!array_key_exists($path, $routes)) {
+//     (new ErrorResponse('Not found'))->send();
+// }
+
+// $action = $routes[$path];
+
+// try {
+//     $response = $action->handle($request);
+// } catch (AppException $e) {
+//     (new ErrorResponse($e->getMessage()))->send();
+// }
+
+// $response->send();
+
+
+
+
 // $action = new FindByLogin(
 //     new SqliteUserRepository(
 //         new PDO('sqlite:blog.sqlite', null, null, [
@@ -68,17 +92,3 @@ $routes = [
 // );
 
 // $action->handle($request)->send();
-
-if (!array_key_exists($path, $routes)) {
-    (new ErrorResponse('Not found'))->send();
-}
-
-$action = $routes[$path];
-
-try {
-    $response = $action->handle($request);
-} catch (AppException $e) {
-    (new ErrorResponse($e->getMessage()))->send();
-}
-
-$response->send();

@@ -3,12 +3,14 @@
 namespace Eastap\PhpBlog\Http;
 
 use Eastap\PhpBlog\Exceptions\HttpException;
+use JsonException;
 
 class Request
 {
     public function __construct(
         private array $get,
-        private array $server
+        private array $server,
+        private string $body
     ) {
     }
 
@@ -57,5 +59,39 @@ class Request
         }
 
         return $value;
+    }
+
+    public function JsonBody(): array
+    {
+        try {
+            $data = json_decode(
+                $this->body,
+                associative: true,
+                flags: JSON_THROW_ON_ERROR
+            );
+        } catch (JsonException $e) {
+            throw new HttpException('Cannot decode JSON');
+        }
+
+        if (!is_array($data)) {
+            throw new HttpException("Not an array/object in json body");
+        }
+
+        return $data;
+    }
+
+    public function JsonBodyField(string $field)
+    {
+        $data = $this->JsonBody();
+
+        if (!array_key_exists($field, $data)) {
+            throw new HttpException("No such field: $field");
+        }
+
+        if (empty($data[$field])) {
+            throw new HttpException("Empty field: $field");
+        }
+
+        return $data[$field];
     }
 }
