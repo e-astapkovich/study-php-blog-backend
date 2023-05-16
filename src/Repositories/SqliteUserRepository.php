@@ -31,7 +31,6 @@ class SqliteUserRepository implements UserRepositoryInterface
 
   public function get(UUID $uuid): User
   {
-    echo "function get" . PHP_EOL; // debug
     $statement = $this->pdo->prepare("SELECT * FROM `users` WHERE `uuid` = ?");
     $statement->execute([(string)$uuid]);
     return $this->getUser($statement);
