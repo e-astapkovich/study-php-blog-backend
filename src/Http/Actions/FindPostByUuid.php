@@ -40,12 +40,13 @@ class FindPostByUuid implements ActionInterface
 
         try {
             $author = $this->userRepo->get(new UUID($post->getAuthorId()));
+            $name = $author->getFirstName() . " " . $author->getLastName();
         } catch (UserNotFoundException $e) {
             $author = 'Неизвестный автор';
         }
 
         return new SuccessResponse([
-            'author' => (string)$author,
+            'author' => $name,
             'title' => $post->getTitle(),
             'text' => $post->getText()
         ]);

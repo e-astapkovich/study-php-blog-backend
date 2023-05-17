@@ -14,6 +14,14 @@ class Request
     ) {
     }
 
+    public function method(): string
+    {
+        if (!array_key_exists('REQUEST_METHOD', $this->server)) {
+            throw new HttpException("Cannot get method from the request");
+        }
+        return $this->server['REQUEST_METHOD'];
+    }
+
     public function path(): string
     {
 

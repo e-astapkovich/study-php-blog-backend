@@ -22,73 +22,64 @@ $request = new Request(
 );
 
 // print_r($request->JsonBody());
-echo $request->JsonBodyField($_GET['field']);
+// echo $request->JsonBodyField($_GET['field']);
+
+try {
+    $method = $request->method();
+} catch (HttpException $e) {
+    (new ErrorResponse($e->getMessage()))->send();
+    return;
+}
 
 try {
     $path = $request->path();
 } catch (HttpException $e) {
-    (new ErrorResponse)->send();
+    (new ErrorResponse($e->getMessage()))->send();
     return;
 }
 
 $routes = [
-    '/users/show' => new FindByLogin(
-        new SqliteUserRepository(
-            new PDO('sqlite:blog.sqlite', null, null, [
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ])
-        )
-    ),
-    '/posts/show' => new FindPostByUuid(
-        new SqlitePostRepository(
-            new PDO('sqlite:blog.sqlite', null, null, [
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ])
+    'GET' => [
+        '/users/show' => new FindByLogin(
+            new SqliteUserRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            )
         ),
-        new SqliteUserRepository(
-            new PDO('sqlite:blog.sqlite', null, null, [
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-            ])
+        '/posts/show' => new FindPostByUuid(
+            new SqlitePostRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            ),
+            new SqliteUserRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            )
         )
-    )
+    ],
+    'POST' => [
+        '/users/create' => null,
+        '/posts/create' => null,
+    ]
 ];
 
-// if (!array_key_exists($path, $routes)) {
-//     (new ErrorResponse('Not found'))->send();
-// }
+if (!array_key_exists($method, $routes)) {
+    (new ErrorResponse("Method is not defined: $method"))->send();
+}
 
-// $action = $routes[$path];
+if (!array_key_exists($path, $routes[$method])) {
+    (new ErrorResponse("Path is not defined: $path"))->send();
+};
 
-// try {
-//     $response = $action->handle($request);
-// } catch (AppException $e) {
-//     (new ErrorResponse($e->getMessage()))->send();
-// }
+$action = $routes[$method][$path];
 
-// $response->send();
+try {
+    $response = $action->handle($request);
+} catch (AppException $e) {
+    (new ErrorResponse($e->getMessage()))->send();
+}
 
-
-
-
-// $action = new FindByLogin(
-//     new SqliteUserRepository(
-//         new PDO('sqlite:blog.sqlite', null, null, [
-//             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-//         ])
-//     )
-// );
-
-// $action = new FindPostByUuid(
-//     new SqlitePostRepository(
-//         new PDO('sqlite:blog.sqlite', null, null, [
-//             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-//         ])
-//     ),
-//     new SqliteUserRepository(
-//         new PDO('sqlite:blog.sqlite', null, null, [
-//             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-//         ])
-//     )
-// );
-
-// $action->handle($request)->send();
+$response->send();
