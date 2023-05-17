@@ -6,7 +6,6 @@ use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
 use Eastap\PhpBlog\Exceptions\PostNotFoundException;
 use Eastap\PhpBlog\Blog\Post;
 use Eastap\PhpBlog\UUID;
-use Exception;
 use \PDO;
 
 class SqlitePostRepository implements PostRepositoryInterface

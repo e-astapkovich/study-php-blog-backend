@@ -10,7 +10,6 @@ use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Exceptions\PostNotFoundException;
-use Eastap\PhpBlog\Blog\Post;
 use Eastap\PhpBlog\Exceptions\UserNotFoundException;
 use Eastap\PhpBlog\Http\SuccessResponse;
 use Eastap\PhpBlog\UUID;

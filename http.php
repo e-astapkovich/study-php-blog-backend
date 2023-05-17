@@ -4,7 +4,6 @@ namespace Eastap\PhpBlog;
 
 use Eastap\PhpBlog\Exceptions\AppException;
 use Eastap\PhpBlog\Http\Request;
-use Eastap\PhpBlog\Http\SuccessResponse;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Http\Actions\FindPostByUuid;

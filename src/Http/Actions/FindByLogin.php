@@ -9,7 +9,6 @@ use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Exceptions\UserNotFoundException;
-use Eastap\PhpBlog\Blog\User;
 use Eastap\PhpBlog\Http\SuccessResponse;
 
 class FindByLogin implements ActionInterface

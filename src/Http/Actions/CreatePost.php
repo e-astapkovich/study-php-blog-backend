@@ -10,7 +10,6 @@ use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Http\SuccessResponse;
 use Eastap\PhpBlog\Http\Actions\ActionInterface;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
-use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\UUID;
 
@@ -24,24 +23,16 @@ class CreatePost implements ActionInterface
 
         try {
             $authorId = $request->JsonBodyField('authorId');
-        } catch (HttpException $e) {
-            return new ErrorResponse($e->getMessage());
-        }
-
-        try {
             $title = $request->JsonBodyField('title');
-        } catch (HttpException $e) {
-            return new ErrorResponse($e->getMessage());
-        }
-
-        try {
             $text = $request->JsonBodyField('text');
         } catch (HttpException $e) {
             return new ErrorResponse($e->getMessage());
         }
 
+        $newPostUuid = UUID::random();
+
         $post = new Post(
-            UUID::random(),
+            $newPostUuid,
             new UUID($authorId),
             $title,
             $text
@@ -53,6 +44,9 @@ class CreatePost implements ActionInterface
             return new ErrorResponse($e->getMessage());
         }
 
-        return new SuccessResponse(['result' => 'post created']);
+        return new SuccessResponse([
+            'result' => 'post created',
+            'uuid' => (string)$newPostUuid
+        ]);
     }
 }
