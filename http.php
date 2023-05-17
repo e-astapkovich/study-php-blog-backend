@@ -9,6 +9,7 @@ use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Http\Actions\FindPostByUuid;
 use Eastap\PhpBlog\Http\Actions\FindByLogin;
+use Eastap\PhpBlog\Http\Actions\CreatePost;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use PDO;
@@ -62,7 +63,13 @@ $routes = [
     ],
     'POST' => [
         '/users/create' => null,
-        '/posts/create' => null,
+        '/posts/create' => new CreatePost(
+            new SqlitePostRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            )
+        )
     ]
 ];
 
