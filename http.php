@@ -9,6 +9,7 @@ use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Http\Actions\FindPostByUuid;
 use Eastap\PhpBlog\Http\Actions\FindByLogin;
 use Eastap\PhpBlog\Http\Actions\CreatePost;
+use Eastap\PhpBlog\Http\Actions\DeletePost;
 use Eastap\PhpBlog\Http\Actions\CreateComment;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
@@ -78,6 +79,15 @@ $routes = [
                 ])
             )
         ),
+    ],
+    'DELETE' => [
+        '/posts' => new DeletePost(
+            new SqlitePostRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            )
+        )
     ]
 ];
 
