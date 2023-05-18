@@ -9,8 +9,10 @@ use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Http\Actions\FindPostByUuid;
 use Eastap\PhpBlog\Http\Actions\FindByLogin;
 use Eastap\PhpBlog\Http\Actions\CreatePost;
-use Eastap\PhpBlog\Repositories\SqlitePostRepository;
+use Eastap\PhpBlog\Http\Actions\CreateComment;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
+use Eastap\PhpBlog\Repositories\SqlitePostRepository;
+use Eastap\PhpBlog\Repositories\SqliteCommentRepository;
 use PDO;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -68,7 +70,14 @@ $routes = [
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
                 ])
             )
-        )
+        ),
+        '/comments/create' => new CreateComment(
+            new SqliteCommentRepository(
+                new PDO('sqlite:blog.sqlite', null, null, [
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+                ])
+            )
+        ),
     ]
 ];
 

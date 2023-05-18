@@ -22,7 +22,7 @@ class CreatePost implements ActionInterface
     public function handle(Request $request): Response {
 
         try {
-            $authorId = $request->JsonBodyField('authorId');
+            $authorUuid = $request->JsonBodyField('author_uuid');
             $title = $request->JsonBodyField('title');
             $text = $request->JsonBodyField('text');
         } catch (HttpException $e) {
@@ -33,7 +33,7 @@ class CreatePost implements ActionInterface
 
         $post = new Post(
             $newPostUuid,
-            new UUID($authorId),
+            new UUID($authorUuid),
             $title,
             $text
         );
