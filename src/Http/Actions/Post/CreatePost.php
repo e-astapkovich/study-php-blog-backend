@@ -1,16 +1,16 @@
 <?php
 
-namespace Eastap\PhpBlog\Http\Actions;
+namespace Eastap\PhpBlog\Http\Actions\Post;
 
-use Eastap\PhpBlog\Blog\Post;
+use Eastap\PhpBlog\Http\Actions\ActionInterface;
+use Eastap\PhpBlog\Repositories\SqlitePostRepository;
+use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Exceptions\AppException;
+use Eastap\PhpBlog\Blog\Post;
 use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\Response;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Http\SuccessResponse;
-use Eastap\PhpBlog\Http\Actions\ActionInterface;
-use Eastap\PhpBlog\Repositories\SqlitePostRepository;
-use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\UUID;
 
 class CreatePost implements ActionInterface
