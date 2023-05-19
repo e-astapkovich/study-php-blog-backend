@@ -1,11 +1,10 @@
 <?php
 
-namespace Eastap\PhpBlog\Http\Actions;
+namespace Eastap\PhpBlog\Http\Actions\Post;
 
-use Eastap\PhpBlog\Http\Actions\ActionInterface;
-use Eastap\PhpBlog\Exceptions\AppException;
-use Eastap\PhpBlog\Exceptions\HttpException;
 use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
+use Eastap\PhpBlog\Exceptions\AppException;
+use Eastap\PhpBlog\Http\Actions\ActionInterface;
 use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\Response;
 use Eastap\PhpBlog\Http\ErrorResponse;

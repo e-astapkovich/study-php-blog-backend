@@ -1,16 +1,16 @@
 <?php
 
-namespace Eastap\PhpBlog\Http\Actions;
+namespace Eastap\PhpBlog\Http\Actions\Post;
 
 use Eastap\PhpBlog\Http\Actions\ActionInterface;
 use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
 use Eastap\PhpBlog\Interfaces\UserRepositoryInterface;
+use Eastap\PhpBlog\Exceptions\HttpException;
+use Eastap\PhpBlog\Exceptions\UserNotFoundException;
+use Eastap\PhpBlog\Exceptions\PostNotFoundException;
 use Eastap\PhpBlog\Http\Response;
 use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\ErrorResponse;
-use Eastap\PhpBlog\Exceptions\HttpException;
-use Eastap\PhpBlog\Exceptions\PostNotFoundException;
-use Eastap\PhpBlog\Exceptions\UserNotFoundException;
 use Eastap\PhpBlog\Http\SuccessResponse;
 use Eastap\PhpBlog\UUID;
 

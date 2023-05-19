@@ -1,7 +1,8 @@
 <?php
 
-namespace Eastap\PhpBlog\Http\Actions;
+namespace Eastap\PhpBlog\Http\Actions\Comment;
 
+use Eastap\PhpBlog\Http\Actions\ActionInterface;
 use Eastap\PhpBlog\Blog\Comment;
 use Eastap\PhpBlog\Exceptions\AppException;
 use Eastap\PhpBlog\Exceptions\HttpException;
