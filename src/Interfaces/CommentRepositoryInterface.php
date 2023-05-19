@@ -7,6 +7,6 @@ use Eastap\PhpBlog\UUID;
 
 interface CommentRepositoryInterface
 {
-  public function save(Comment $post): void;
+  public function save(Comment $comment): void;
   public function get(UUID $id): Comment;
 }

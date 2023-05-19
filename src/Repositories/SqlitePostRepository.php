@@ -6,7 +6,6 @@ use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
 use Eastap\PhpBlog\Exceptions\PostNotFoundException;
 use Eastap\PhpBlog\Blog\Post;
 use Eastap\PhpBlog\UUID;
-use Exception;
 use \PDO;
 
 class SqlitePostRepository implements PostRepositoryInterface
@@ -29,14 +28,19 @@ class SqlitePostRepository implements PostRepositoryInterface
     ]);
   }
 
-  public function get(UUID $id): Post
+  public function get(UUID $uuid): Post
   {
     $statement = $this->pdo->prepare('SELECT * FROM `posts` WHERE `uuid`=?');
-    $statement->execute([(string)$id]);
+    $statement->execute([(string)$uuid]);
     $result = $statement->fetch();
     if ($result == false) {
       throw new PostNotFoundException('Пост не найден');
     }
     return new Post(new UUID($result['uuid']), new UUID($result['author_uuid']), $result['title'], $result['text']);
+  }
+
+  public function delete(UUID $uuid): void {
+    $statement = $this->pdo->prepare('DELETE FROM `posts` WHERE `uuid`=:uuid');
+    $statement->execute([':uuid' => (string)$uuid]);
   }
 }
