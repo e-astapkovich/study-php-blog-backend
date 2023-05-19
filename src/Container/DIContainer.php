@@ -7,6 +7,10 @@ use Eastap\PhpBlog\Exceptions\NotFoundException;
 class DIContainer
 {
     public function get(string $type): object {
-        throw new NotFoundException("Cannot resolve type: $type");
+        if (!class_exists($type)) {
+            throw new NotFoundException("Cannot resolve type: $type");
+        }
+
+        return new $type;
     }
 }

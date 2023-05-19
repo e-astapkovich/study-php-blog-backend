@@ -18,4 +18,14 @@ class DIContainerTest extends TestCase
 
         $container->get(SomeClass::class);
     }
+
+    public function testItResolvesClassWithoutDependecies(): void {
+        $container = new DIContainer();
+        $object = $container->get(SomeClassWithoutDependencies::class);
+
+        $this->assertInstanceOf(
+            SomeClassWithoutDependencies::class,
+            $object
+        );
+    }
 }

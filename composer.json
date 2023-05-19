@@ -6,6 +6,11 @@
             "Eastap\\PhpBlog\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Eastap\\PhpBlog\\UnitTests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Евгений Астапкович",
