@@ -10,7 +10,8 @@ use Eastap\PhpBlog\Repositories\InMemoryUserRepository;
 
 class DIContainerTest extends TestCase
 {
-    public function testItThrowsAnExceptionIfCannotResolveType(): void {
+    public function testItThrowsAnExceptionIfCannotResolveType(): void
+    {
         $container = new DIContainer();
 
         $this->expectException(NotFoundException::class);
@@ -21,7 +22,8 @@ class DIContainerTest extends TestCase
         $container->get(SomeClass::class);
     }
 
-    public function testItResolvesClassWithoutDependecies(): void {
+    public function testItResolvesClassWithoutDependecies(): void
+    {
         $container = new DIContainer();
         $object = $container->get(SomeClassWithoutDependencies::class);
 
@@ -31,7 +33,8 @@ class DIContainerTest extends TestCase
         );
     }
 
-    public function testItResolvesClassByContract(): void {
+    public function testItResolvesClassByContract(): void
+    {
         $container = new DIContainer();
 
         $container->bind(
@@ -43,6 +46,28 @@ class DIContainerTest extends TestCase
         $this->assertInstanceOf(
             InMemoryUserRepository::class,
             $object
+        );
+    }
+
+    public function testItReturnsPredefinedObject(): void
+    {
+        $container = new DIContainer();
+
+        $container->bind(
+            SomeClassWithParameter::class,
+            new SomeClassWithParameter(42)
+        );
+
+        $object =  $container->get(SomeClassWithParameter::class);
+
+        $this->assertInstanceOf(
+            SomeClassWithParameter::class,
+            $object
+        );
+
+        $this->assertSame(
+            42,
+            $object->value
         );
     }
 }
