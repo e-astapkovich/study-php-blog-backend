@@ -5,6 +5,8 @@ namespace Eastap\PhpBlog\UnitTests\Container;
 use PHPUnit\Framework\TestCase;
 use Eastap\PhpBlog\Container\DIContainer;
 use Eastap\PhpBlog\Exceptions\NotFoundException;
+use Eastap\PhpBlog\Interfaces\UserRepositoryInterface;
+use Eastap\PhpBlog\Repositories\InMemoryUserRepository;
 
 class DIContainerTest extends TestCase
 {
@@ -25,6 +27,21 @@ class DIContainerTest extends TestCase
 
         $this->assertInstanceOf(
             SomeClassWithoutDependencies::class,
+            $object
+        );
+    }
+
+    public function testItResolvesClassByContract(): void {
+        $container = new DIContainer();
+
+        $container->bind(
+            UserRepositoryInterface::class,
+            InMemoryUserRepository::class
+        );
+
+        $object = $container->get(UserRepositoryInterface::class);
+        $this->assertInstanceOf(
+            InMemoryUserRepository::class,
             $object
         );
     }
