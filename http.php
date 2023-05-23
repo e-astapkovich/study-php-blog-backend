@@ -11,10 +11,6 @@ use Eastap\PhpBlog\Http\Actions\Post\CreatePost;
 use Eastap\PhpBlog\Http\Actions\Post\DeletePost;
 use Eastap\PhpBlog\Http\Actions\User\FindByLogin;
 use Eastap\PhpBlog\Http\Actions\Comment\CreateComment;
-use Eastap\PhpBlog\Repositories\SqliteUserRepository;
-use Eastap\PhpBlog\Repositories\SqlitePostRepository;
-use Eastap\PhpBlog\Repositories\SqliteCommentRepository;
-use PDO;
 
 require_once __DIR__ . '/bootstrap.php';
 
