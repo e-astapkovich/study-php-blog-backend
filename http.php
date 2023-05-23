@@ -24,9 +24,6 @@ $request = new Request(
     file_get_contents('php://input')
 );
 
-// print_r($request->JsonBody());
-// echo $request->JsonBodyField($_GET['field']);
-
 try {
     $method = $request->method();
 } catch (HttpException $e) {
