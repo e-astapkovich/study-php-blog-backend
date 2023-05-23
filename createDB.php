@@ -48,6 +48,18 @@ CREATE TABLE comments (
   text        TEXT NOT NULL
 );");
 
+// Создание таблицы likes
+$dpo->query("
+CREATE TABLE likes (
+  uuid      TEXT PRIMARY KEY
+                 UNIQUE
+                 NOT NULL,
+  post_uuid TEXT NOT NULL
+                 REFERENCES posts (uuid) ON DELETE CASCADE,
+  user_uuid TEXT NOT NULL
+                 REFERENCES users (uuid) ON DELETE CASCADE
+);");
+
 // Добавление тестовых записей в таблицу users
 $pdo->query("INSERT INTO users (uuid, login, first_name, last_name) VALUES ('3bed1a29-6737-45ff-81f2-7366f56498a7', 'pirate', 'Billy', 'Bons');");
 $pdo->query("INSERT INTO users (uuid, login, first_name, last_name) VALUES ('28a69607-72b3-476c-bd2c-08b4a6b82e93', 'ben', 'Ben', 'Gann');");
@@ -58,3 +70,6 @@ $pdo->query("INSERT INTO posts (uuid, author_uuid, title, text) VALUES ('881a75e
 
 // Добавление тестовых записей в таблицу comments
 $pdo->query("INSERT INTO comments (uuid, post_uuid, author_uuid, text) VALUES ('616f7121-89d0-4f38-b356-31746394d41a', '881a75e6-5db9-4106-bb1c-94a84058594f', '02f07d60-2548-4342-85f5-65f2a7c3be4b', 'Dont worry');");
+
+// Добавление тестовых записей в таблицу likes
+$pdo->query("INSERT INTO likes (uuid, post_uuid, user_uuid) VALUES ('02f07d60-2548-4342-85f5-65f2a7c3be4b', '83c25487-b807-4430-b7c5-4f204da7d5ca', '02f07d60-2548-4342-85f5-65f2a7c3be4b');");
