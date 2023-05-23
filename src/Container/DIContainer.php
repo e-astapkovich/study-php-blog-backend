@@ -3,9 +3,10 @@
 namespace Eastap\PhpBlog\Container;
 
 use Eastap\PhpBlog\Exceptions\NotFoundException;
+use Psr\Container\ContainerInterface;
 use ReflectionClass;
 
-class DIContainer
+class DIContainer implements ContainerInterface
 {
     private array $resolvers = [];
 
@@ -43,5 +44,14 @@ class DIContainer
         }
 
         return new $type(...$parameters);
+    }
+
+    public function has(string $type): bool {
+        try {
+            $this->get($type);
+        } catch (NotFoundException $e) {
+            return false;
+        }
+        return true;
     }
 }
