@@ -6,6 +6,11 @@
             "Eastap\\PhpBlog\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Eastap\\PhpBlog\\UnitTests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Евгений Астапкович",
@@ -16,7 +21,8 @@
         "test": "phpunit tests --testdox --colors"
     },
     "require": {
-        "symfony/polyfill-uuid": "^1.27"
+        "symfony/polyfill-uuid": "^1.27",
+        "psr/container": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",
