@@ -3,6 +3,7 @@
 namespace Eastap\PhpBlog\Container;
 
 use Eastap\PhpBlog\Exceptions\NotFoundException;
+use ReflectionClass;
 
 class DIContainer
 {
@@ -26,6 +27,21 @@ class DIContainer
             throw new NotFoundException("Cannot resolve type: $type");
         }
 
-        return new $type;
+        $reflectionClass = new ReflectionClass($type);
+        $constructor = $reflectionClass->getConstructor();
+
+        if ($constructor == null) {
+            return new $type;
+        }
+
+        $parameters = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+            $parameterType = $parameter->getType()->getName();
+
+            $parameters[] = $this->get($parameterType);
+        }
+
+        return new $type(...$parameters);
     }
 }
