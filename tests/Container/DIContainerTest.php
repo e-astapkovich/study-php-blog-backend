@@ -70,4 +70,20 @@ class DIContainerTest extends TestCase
             $object->value
         );
     }
+
+    public function testItResolvesClassWithDependencies(): void {
+        $container = new DIContainer;
+
+        $container->bind(
+            SomeClassWithParameter::class,
+            new SomeClassWithParameter(42)
+        );
+
+        $object = $container->get(ClassDependingOnAnother::class);
+
+        $this->assertInstanceOf(
+            ClassDependingOnAnother::class,
+            $object
+        );
+    }
 }
