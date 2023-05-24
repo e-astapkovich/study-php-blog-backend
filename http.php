@@ -11,6 +11,7 @@ use Eastap\PhpBlog\Http\Actions\Post\CreatePost;
 use Eastap\PhpBlog\Http\Actions\Post\DeletePost;
 use Eastap\PhpBlog\Http\Actions\User\FindByLogin;
 use Eastap\PhpBlog\Http\Actions\Comment\CreateComment;
+use Eastap\PhpBlog\Http\Actions\Likes\AddLike;
 
 require_once __DIR__ . '/bootstrap.php';
 
@@ -42,6 +43,7 @@ $routes = [
     'POST' => [
         '/posts/create' => CreatePost::class,
         '/comments/create' => CreateComment::class,
+        '/likes/add' => AddLike::class
     ],
     'DELETE' => [
         '/posts' => DeletePost::class

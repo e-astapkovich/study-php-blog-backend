@@ -6,9 +6,11 @@ use Eastap\PhpBlog\Container\DIContainer;
 use Eastap\PhpBlog\Interfaces\CommentRepositoryInterface;
 use Eastap\PhpBlog\Interfaces\PostRepositoryInterface;
 use Eastap\PhpBlog\Interfaces\UserRepositoryInterface;
+use Eastap\PhpBlog\Interfaces\LikeRepositoryInterface;
 use Eastap\PhpBlog\Repositories\SqliteCommentRepository;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
+use Eastap\PhpBlog\Repositories\SqliteLikeRepository;
 use PDO;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -35,6 +37,11 @@ $container->bind(
 $container->bind(
     CommentRepositoryInterface::class,
     SqliteCommentRepository::class
+);
+
+$container->bind(
+    LikeRepositoryInterface::class,
+    SqliteLikeRepository::class
 );
 
 return $container;
