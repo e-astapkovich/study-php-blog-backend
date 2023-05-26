@@ -38,4 +38,14 @@ class SqliteLikeRepository implements LikeRepositoryInterface
         }
         return $result;
     }
+
+    public function isLikeExists(UUID $postUuid, UUID $userUuid): bool {
+        $statement = $this->pdo->prepare("SELECT * FROM `likes` WHERE `post_uuid`=:post_uuid AND `user_uuid`=:user_uuid");
+        $statement->execute([
+            ':post_uuid' => $postUuid,
+            ':user_uuid' => $userUuid
+        ]);
+        $result = $statement->fetchAll();
+        return (bool)$result;
+    }
 }

@@ -9,4 +9,5 @@ interface LikeRepositoryInterface
 {
     public function save(Like $like): void;
     public function getByPostUuid(UUID $postUuid): array;
+    public function isLikeExists(UUID $postUuid, UUID $userUuid): bool;
 }

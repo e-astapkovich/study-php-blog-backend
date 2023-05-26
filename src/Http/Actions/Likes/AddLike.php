@@ -24,27 +24,22 @@ class AddLike implements ActionInterface
     public function handle(Request $request): Response
     {
         try {
-            $postId = $request->JsonBodyField('post_id');
-            $userId = $request->JsonBodyField('user_id');
+            $postUuid = $request->JsonBodyField('post_id');
+            $userUuid = $request->JsonBodyField('user_id');
         } catch (HttpException $e) {
             return new ErrorResponse($e->getMessage());
         }
 
-        try {
-            $postLikes = $this->likeRepository->getByPostUuid(new UUID($postId));
-            foreach ($postLikes as $like) {
-                if ($like['user_uuid'] == $userId) {
-                    return new ErrorResponse('Пользователь уже ставил лайк этой статье.');
-                }
-            }
-        } catch (NoLikesException $e) {}
+        if ($this->likeRepository->isLikeExists(new UUID($postUuid), new UUID($userUuid))) {
+            return new ErrorResponse('Пользователь уже ставил лайк этой статье.');
+        }
 
         $newLikeUuid = UUID::random();
 
         $like = new Like(
             $newLikeUuid,
-            new UUID($postId),
-            new UUID($userId)
+            new UUID($postUuid),
+            new UUID($userUuid)
         );
 
         try {
