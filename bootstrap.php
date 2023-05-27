@@ -12,6 +12,7 @@ use Eastap\PhpBlog\Repositories\SqlitePostRepository;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\Repositories\SqliteLikeRepository;
 use PDO;
+use Psr\Log\LoggerInterface;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -22,6 +23,14 @@ $container->bind(
     new PDO('sqlite:' . __DIR__ . '/blog.sqlite', null, null, [
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ])
+);
+
+$container->bind(
+    LoggerInterface::class,
+    (new Logger('blog'))
+        ->pushHandler(new StreamHandler(
+            __DIR__ . '/logs/blog.log'
+        ))
 );
 
 $container->bind(
