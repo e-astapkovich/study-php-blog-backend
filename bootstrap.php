@@ -13,6 +13,8 @@ use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\Repositories\SqliteLikeRepository;
 use PDO;
 use Psr\Log\LoggerInterface;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
