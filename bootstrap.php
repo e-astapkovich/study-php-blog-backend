@@ -14,6 +14,7 @@ use Eastap\PhpBlog\Repositories\SqliteLikeRepository;
 use PDO;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
+use Monolog\Level;
 use Monolog\Handler\StreamHandler;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -32,6 +33,11 @@ $container->bind(
     (new Logger('blog'))
         ->pushHandler(new StreamHandler(
             __DIR__ . '/logs/blog.log'
+        ))
+        ->pushHandler(new StreamHandler(
+            __DIR__ . '/logs/blog.error.log',
+            Level::Error,
+            bubble: false
         ))
 );
 
