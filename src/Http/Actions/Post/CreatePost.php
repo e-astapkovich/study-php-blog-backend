@@ -12,11 +12,13 @@ use Eastap\PhpBlog\Http\Response;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Http\SuccessResponse;
 use Eastap\PhpBlog\UUID;
+use PSR\Log\LoggerInterface;
 
 class CreatePost implements ActionInterface
 {
     public function __construct(
         private SqlitePostRepository $postRepo,
+        private LoggerInterface $logger
     ){}
 
     public function handle(Request $request): Response {
@@ -40,6 +42,7 @@ class CreatePost implements ActionInterface
 
         try {
             $this->postRepo->save($post);
+            $this->logger->info("Postcreated: $newPostUuid");
         } catch (AppException $e) {
             return new ErrorResponse($e->getMessage());
         }
