@@ -23,7 +23,8 @@ class CreateUserCommand
         $this->logger->info('Create user command started.');
         $login = $arguments->get('login');
         if ($this->userExists($login)) {
-            throw new CommandException("User already exists: $login");
+            $this->logger->warning("User already exists: $login");
+            return;
         }
 
         $uuid = UUID::random();
