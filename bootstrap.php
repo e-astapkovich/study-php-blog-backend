@@ -39,6 +39,7 @@ $container->bind(
             Level::Error,
             bubble: false
         ))
+        ->pushHandler(new StreamHandler("php://stdout"))
 );
 
 $container->bind(
