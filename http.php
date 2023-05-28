@@ -2,7 +2,6 @@
 
 namespace Eastap\PhpBlog;
 
-use Eastap\PhpBlog\Exceptions\AppException;
 use Eastap\PhpBlog\Http\Request;
 use Eastap\PhpBlog\Http\ErrorResponse;
 use Eastap\PhpBlog\Exceptions\HttpException;
@@ -12,9 +11,12 @@ use Eastap\PhpBlog\Http\Actions\Post\DeletePost;
 use Eastap\PhpBlog\Http\Actions\User\FindByLogin;
 use Eastap\PhpBlog\Http\Actions\Comment\CreateComment;
 use Eastap\PhpBlog\Http\Actions\Likes\AddLike;
+use Exception;
+use Psr\Log\LoggerInterface;
 
 require_once __DIR__ . '/bootstrap.php';
 
+$logger = $container->get(LoggerInterface::class);
 $request = new Request(
     $_GET,
     $_SERVER,
@@ -24,14 +26,16 @@ $request = new Request(
 try {
     $method = $request->method();
 } catch (HttpException $e) {
-    (new ErrorResponse($e->getMessage()))->send();
+    $logger->warning($e->getMessage());
+    (new ErrorResponse)->send();
     return;
 }
 
 try {
     $path = $request->path();
 } catch (HttpException $e) {
-    (new ErrorResponse($e->getMessage()))->send();
+    $logger->warning($e->getMessage());
+    (new ErrorResponse)->send();
     return;
 }
 
@@ -51,19 +55,24 @@ $routes = [
 ];
 
 if (!array_key_exists($method, $routes)) {
+    $logger->notice("Method is not defined: $method");
     (new ErrorResponse("Method is not defined: $method"))->send();
+    return;
 }
 
 if (!array_key_exists($path, $routes[$method])) {
+    $logger->notice("Path is not defined: $path");
     (new ErrorResponse("Path is not defined: $path"))->send();
+    return;
 };
 
-$action = $container->get($routes[$method][$path]);
-
 try {
+    $action = $container->get($routes[$method][$path]);
     $response = $action->handle($request);
-} catch (AppException $e) {
-    (new ErrorResponse($e->getMessage()))->send();
+} catch (Exception $e) {
+    $logger->error($e->getMessage());
+    (new ErrorResponse)->send();
+    return;
 }
 
 $response->send();
