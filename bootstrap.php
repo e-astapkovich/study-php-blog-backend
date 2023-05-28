@@ -31,9 +31,10 @@ $container->bind(
     ])
 );
 
-$container->bind(
-    LoggerInterface::class,
-    (new Logger('blog'))
+$logger = new Logger('blog');
+
+if ($_SERVER['LOG_TO_FILES'] == 'yes') {
+    $logger
         ->pushHandler(new StreamHandler(
             __DIR__ . '/logs/blog.log'
         ))
@@ -41,8 +42,17 @@ $container->bind(
             __DIR__ . '/logs/blog.error.log',
             Level::Error,
             bubble: false
-        ))
-        ->pushHandler(new StreamHandler("php://stdout"))
+        ));
+}
+
+if ($_SERVER['LOG_TO_CONSOLE'] == 'yes') {
+    $logger
+        ->pushHandler(new StreamHandler("php://stdout"));
+}
+
+$container->bind(
+    LoggerInterface::class,
+    $logger
 );
 
 $container->bind(
