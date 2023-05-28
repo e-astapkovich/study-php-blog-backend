@@ -3,7 +3,6 @@
 namespace Eastap\PhpBlog\Commands;
 
 use Eastap\PhpBlog\Interfaces\UserRepositoryInterface;
-use Eastap\PhpBlog\Exceptions\CommandException;
 use Eastap\PhpBlog\Exceptions\UserNotFoundException;
 use Eastap\PhpBlog\Commands\Arguments;
 use Eastap\PhpBlog\Blog\User;
