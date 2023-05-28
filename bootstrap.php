@@ -16,10 +16,13 @@ use Psr\Log\LoggerInterface;
 use Monolog\Logger;
 use Monolog\Level;
 use Monolog\Handler\StreamHandler;
+use Dotenv;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
 $container = new DIContainer;
+
+Dotenv\Dotenv::createImmutable(__DIR__)->safeLoad();
 
 $container->bind(
     PDO::class,
