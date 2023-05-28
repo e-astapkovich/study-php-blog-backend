@@ -2,3 +2,4 @@ composer.phar
 /vendor/
 cli-d.php
 /.vscode/launch.json
+.env
