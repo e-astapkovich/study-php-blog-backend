@@ -7,11 +7,13 @@ use Eastap\PhpBlog\Blog\Like;
 use Eastap\PhpBlog\Exceptions\NoLikesException;
 use Eastap\PhpBlog\Interfaces\LikeRepositoryInterface;
 use Eastap\PhpBlog\UUID;
+use Psr\Log\LoggerInterface;
 
 class SqliteLikeRepository implements LikeRepositoryInterface
 {
     public function __construct(
-        private PDO $pdo
+        private PDO $pdo,
+        private LoggerInterface $logger
     ) {}
 
     public function save(Like $like): void {
@@ -26,6 +28,7 @@ class SqliteLikeRepository implements LikeRepositoryInterface
             ':post_uuid' => $postUuid,
             ':user_uuid' => $userUuid
         ]);
+        $this->logger->info("Like saved to sqlite db: $uuid");
     }
 
     public function getByPostUuid(UUID $postUuid): array {
