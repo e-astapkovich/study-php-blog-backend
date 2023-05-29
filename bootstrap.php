@@ -11,6 +11,8 @@ use Eastap\PhpBlog\Repositories\SqliteCommentRepository;
 use Eastap\PhpBlog\Repositories\SqlitePostRepository;
 use Eastap\PhpBlog\Repositories\SqliteUserRepository;
 use Eastap\PhpBlog\Repositories\SqliteLikeRepository;
+use Eastap\PhpBlog\Http\Auth\IdentificationInterface;
+use Eastap\PhpBlog\Http\Auth\JsonBodyUuidIdentification;
 use PDO;
 use Psr\Log\LoggerInterface;
 use Monolog\Logger;
@@ -73,6 +75,11 @@ $container->bind(
 $container->bind(
     LikeRepositoryInterface::class,
     SqliteLikeRepository::class
+);
+
+$container->bind(
+    IdentificationInterface::class,
+    JsonBodyUuidIdentification::class
 );
 
 return $container;
