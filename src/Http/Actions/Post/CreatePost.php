@@ -28,7 +28,6 @@ class CreatePost implements ActionInterface
         $author = $this->identification->user($request);
 
         try {
-            // $authorUuid = $request->JsonBodyField('author_uuid');
             $title = $request->JsonBodyField('title');
             $text = $request->JsonBodyField('text');
         } catch (HttpException $e) {
